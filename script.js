@@ -16,6 +16,14 @@ list.forEach((el, i) => {
   }
 });
 
+//
+previewBtn.style.opacity = "0";
+previewBtn.style.scale = "0";
+
+////////////////////////////////////////////////////////////////////////////
+// HELPER FUNCTIONS
+////////////////////////////////////////////////////////////////////////////
+
 // clear function
 const clear = () => {
   list.forEach((el) => {
@@ -23,11 +31,22 @@ const clear = () => {
   });
 };
 
-//
-previewBtn.style.opacity = "0";
-previewBtn.style.scale = "0";
+// render result function
+const renderResult = (page) => {
+  // calculate page for slice
+  let pageSplice01 = (page - 1) * resultPerPage; //
+  let pageSplice02 = page * resultPerPage; //
 
-//
+  // create array from the li nobelist and lice
+  let result = Array.from(list).slice(pageSplice01, pageSplice02);
+
+  // loop thru the slice() result and render
+  result.forEach((el) => {
+    el.style.display = "flex";
+  });
+};
+
+// next button display function
 const nextBtnDisplay = () => {
   if (page === Math.ceil(listLength / resultPerPage)) {
     nextBtn.style.opacity = "0";
@@ -40,7 +59,7 @@ const nextBtnDisplay = () => {
   }
 };
 
-//
+// previous button display function
 const previewBtnDisplay = () => {
   if (page === 1) {
     previewBtn.style.opacity = "0";
@@ -52,62 +71,48 @@ const previewBtnDisplay = () => {
   }
 };
 
-// next btn
-nextBtn.addEventListener("click", function () {
-  if (page === Math.ceil(listLength / resultPerPage)) {
-    nextBtn.style.opacity = "0";
-    return;
-  }
+////////////////////////////////////////////////////////////////////////////
+// BTN EVENT LISTENERS
+////////////////////////////////////////////////////////////////////////////
 
-  // clear page
+// NEXT BTN LISTENER
+nextBtn.addEventListener("click", function () {
+  // if page is at max, done execute any further
+  if (page === Math.ceil(listLength / resultPerPage)) return;
+
+  // clear all result
   clear();
 
+  // add 1 to the page
   page += 1;
 
-  // calculate page for splice
-  let pageSplice01 = (page - 1) * resultPerPage; // 0 5
-  let pageSplice02 = page * resultPerPage; // 5 10
+  // render results
+  renderResult(page);
 
-  // slice and render
-  let result = Array.from(list).slice(pageSplice01, pageSplice02);
-
-  result.forEach((el) => {
-    el.style.display = "flex";
-  });
-
-  //
-
-  //
+  // update and render the page number
   pageNum.textContent = page;
 
-  //
+  // next and previous button display check
   nextBtnDisplay();
 });
 
-//
+// PREVIOUS BTN LISTENER
 previewBtn.addEventListener("click", function () {
+  // if the page is at 1 don't execute any further
   if (page === 1) return;
 
-  // clear page
+  // clear all result
   clear();
 
-  // change page
+  // subtract 1 from the page
   page -= 1;
 
-  // calculate page for splice
-  let pageSplice01 = (page - 1) * resultPerPage; //
-  let pageSplice02 = page * resultPerPage; //
+  // render results
+  renderResult(page);
 
-  // slice and render
-  let result = Array.from(list).slice(pageSplice01, pageSplice02);
-
-  result.forEach((el) => {
-    el.style.display = "flex";
-  });
-
-  // update page number
+  // update and render the page number
   pageNum.textContent = page;
 
-  //
+  // next and previous button display check
   previewBtnDisplay();
 });

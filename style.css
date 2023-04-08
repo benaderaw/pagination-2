@@ -1,3 +1,17 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: #444;
+}
+
+h1 {
+  display: flex;
+  justify-content: center;
+  font-size: 50px;
+  margin: 30px;
+}
+
 .links {
   display: flex;
   justify-content: center;
@@ -10,9 +24,9 @@
   align-items: center;
   list-style: none;
   background-color: rgb(255, 128, 128);
-  width: 150px;
+  width: 250px;
   padding: 10px;
-  font-size: 20px;
+  font-size: 25px;
   font-weight: 600;
   color: honeydew;
   border-radius: 40px;
@@ -23,10 +37,10 @@
   justify-content: space-between;
   align-items: center;
   background-color: rgb(127, 172, 255);
-  width: 275px;
+  width: 300px;
   margin: 0 auto;
-  padding: 3px 10px;
-  border-radius: 50px;
+  padding: 20px 10px;
+  border-radius: 60px;
 }
 
 .btn {
